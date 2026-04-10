@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<title>For You</title>
+<title>Private Message</title>
 
 <style>
 body {
@@ -24,34 +24,45 @@ body {
     100%{background-position:0% 50%}
 }
 
-.card {
-    background: rgba(255,255,255,0.85);
+.box {
+    background: rgba(255,255,255,0.9);
     padding: 25px;
     border-radius: 20px;
-    max-width: 600px;
     text-align: center;
+    width: 320px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     backdrop-filter: blur(8px);
-    z-index: 10;
+}
+
+input {
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-top: 10px;
 }
 
 button {
-    padding: 12px 20px;
+    margin-top: 10px;
+    padding: 10px 15px;
     border: none;
     border-radius: 10px;
     background: #ff5e8a;
     color: white;
     cursor: pointer;
-    margin-top: 10px;
 }
 
-button:hover {transform: scale(1.05)}
+button:hover {
+    transform: scale(1.05);
+}
 
 #msg {
+    display: none;
     margin-top: 20px;
     white-space: pre-line;
-    font-size: 17px;
-    min-height: 120px;
+    font-size: 16px;
+    text-align: left;
 }
 
 /* tim bay */
@@ -71,46 +82,46 @@ button:hover {transform: scale(1.05)}
 
 <body>
 
-<div class="card">
-    <h2>🎂 Một lời nhắn</h2>
+<div class="box">
 
-    <button onclick="openLetter()">Mở ra</button>
+    <h3>🔒 Nhập mật khẩu</h3>
+    <p style="font-size:13px;color:gray;">Hint: dd/mm/yyyy</p>
 
-    <div id="msg"></div>
+    <input id="pass" placeholder="Nhập mật khẩu...">
+    <br>
+    <button onclick="checkPass()">Mở</button>
+
+    <div id="msg">
+Sếp ơi, chúc sếp tuổi mới  
+
+Phúc không muốn chúc Dương phải mạnh mẽ hơn nữa, vì Dương đã mạnh mẽ đủ rồi.  
+Chỉ mong rằng Dương sẽ nhẹ nhàng với chính bản thân mình hơn, vui nhiều hơn và sẽ gặp được người hiểu bạn như cách bạn luôn hiểu cho người khác nhé.  
+
+Có những lúc chẳng cần nói gì,  
+chỉ cần quay lại — vẫn thấy bọn tôi đứng đó,  
+là đủ để biết mình chưa từng một mình nhé Dương.
+    </div>
+
 </div>
 
 <audio id="music" loop>
-    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a8.mp3?filename=soft-piano-ambient-110397.mp3" type="audio/mp3">
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a8.mp3?filename=soft-piano-ambient-110397.mp3">
 </audio>
 
 <script>
-const text = `Sếp ơi, chúc sếp tuổi mới
 
-Phúc không muốn chúc Dương phải mạnh mẽ hơn nữa, vì Dương đã mạnh mẽ đủ rồi.
-Chỉ mong rằng Dương sẽ nhẹ nhàng với chính bản thân mình hơn, vui nhiều hơn và sẽ gặp được người hiểu bạn như cách bạn luôn hiểu cho người khác nhé.
+function checkPass() {
+    const input = document.getElementById("pass").value;
 
-Có những lúc chẳng cần nói gì,
-chỉ cần quay lại — vẫn thấy bọn tôi đứng đó,
-là đủ để biết mình chưa từng một mình nhé Dương.`;
+    if (input === "11/04/2005") {
+        document.getElementById("msg").style.display = "block";
+        document.getElementById("music").play();
 
-let i = 0;
+        for (let i = 0; i < 20; i++) createHeart();
 
-function type() {
-    if (i < text.length) {
-        document.getElementById("msg").innerHTML += text.charAt(i);
-        i++;
-        setTimeout(type, 25);
+    } else {
+        alert("Sai mật khẩu rồi 😢 thử lại nhé");
     }
-}
-
-function openLetter() {
-    document.getElementById("msg").innerHTML = "";
-    i = 0;
-    type();
-
-    document.getElementById("music").play();
-
-    for (let j = 0; j < 20; j++) createHeart();
 }
 
 function createHeart() {
@@ -124,6 +135,7 @@ function createHeart() {
 
     setTimeout(() => heart.remove(), 4000);
 }
+
 </script>
 
 </body>
