@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>For You</title>
+
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial;
+    background: linear-gradient(-45deg,#ffdde1,#ee9ca7,#c9d6ff,#e2e2e2);
+    background-size: 400% 400%;
+    animation: bg 10s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes bg {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+.card {
+    background: rgba(255,255,255,0.85);
+    padding: 25px;
+    border-radius: 20px;
+    max-width: 600px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(8px);
+    z-index: 10;
+}
+
+button {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 10px;
+    background: #ff5e8a;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {transform: scale(1.05)}
+
+#msg {
+    margin-top: 20px;
+    white-space: pre-line;
+    font-size: 17px;
+    min-height: 120px;
+}
+
+/* tim bay */
+.heart {
+    position: absolute;
+    color: #ff4d6d;
+    animation: floatUp 4s linear infinite;
+}
+
+@keyframes floatUp {
+    0%{transform: translateY(0); opacity:1}
+    100%{transform: translateY(-800px); opacity:0}
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+    <h2>🎂 Một lời nhắn</h2>
+
+    <button onclick="openLetter()">Mở ra</button>
+
+    <div id="msg"></div>
+</div>
+
+<audio id="music" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_c8c8a8.mp3?filename=soft-piano-ambient-110397.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const text = `Sếp ơi, chúc sếp tuổi mới
+
+Phúc không muốn chúc Dương phải mạnh mẽ hơn nữa, vì Dương đã mạnh mẽ đủ rồi.
+Chỉ mong rằng Dương sẽ nhẹ nhàng với chính bản thân mình hơn, vui nhiều hơn và sẽ gặp được người hiểu bạn như cách bạn luôn hiểu cho người khác nhé.
+
+Có những lúc chẳng cần nói gì,
+chỉ cần quay lại — vẫn thấy bọn tôi đứng đó,
+là đủ để biết mình chưa từng một mình nhé Dương.`;
+
+let i = 0;
+
+function type() {
+    if (i < text.length) {
+        document.getElementById("msg").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(type, 25);
+    }
+}
+
+function openLetter() {
+    document.getElementById("msg").innerHTML = "";
+    i = 0;
+    type();
+
+    document.getElementById("music").play();
+
+    for (let j = 0; j < 20; j++) createHeart();
+}
+
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.className = "heart";
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random()*100 + "vw";
+    heart.style.top = "100vh";
+    heart.style.fontSize = Math.random()*20 + 10 + "px";
+    document.body.appendChild(heart);
+
+    setTimeout(() => heart.remove(), 4000);
+}
+</script>
+
+</body>
+</html>
